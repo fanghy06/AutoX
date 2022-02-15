@@ -130,7 +130,7 @@ class CrossXgbBiClassifier(object):
         return result
 
 class CrossLgbBiClassifier(object):
-    def __init__(self, params=None, n_fold=5):
+    def __init__(self, params=None, n_fold=10):
         self.models = []
         self.feature_importances_ = pd.DataFrame()
         self.n_fold = n_fold

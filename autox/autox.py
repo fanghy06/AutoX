@@ -130,7 +130,7 @@ class AutoX():
         # 模型预测
         predict_lgb = self.model_lgb.predict(self.test[self.used_features])
         predict_xgb = self.model_xgb.predict(self.test[self.used_features])
-        predict_tabnet = model_tabnet.predict(test[used_features])
+#         predict_tabnet = model_tabnet.predict(test[used_features])
         predict = (predict_xgb + predict_lgb) / 2
 #         predict = predict_lgb
 

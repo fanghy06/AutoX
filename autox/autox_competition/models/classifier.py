@@ -82,6 +82,7 @@ class CrossXgbBiClassifier(object):
         # self.params_['tree_method'] = 'gpu_hist'
 
     def fit(self, X, y, tuning=True, Debug=False):
+        log('！！！！！！！！新版本上线！！！！！！！！！！！')
         log(X.shape)
         self.feature_importances_['feature'] = X.columns
         self.scaler = StandardScaler()

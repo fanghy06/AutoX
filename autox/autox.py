@@ -308,11 +308,11 @@ class AutoX():
         log("start training lightgbm model")
         if self.info_['task_type'] == 'regression':
             self.model_lgb = CrossLgbRegression(metric=self.info_['metric'])
-            self.model_lgb.fit(self.train[self.used_features], self.train[target], tuning=False, Debug=self.Debug)
+            self.model_lgb.fit(self.train[self.used_features], self.train[target], tuning=True, Debug=self.Debug)
 
         elif self.info_['task_type'] == 'binary':
             self.model_lgb = CrossLgbBiClassifier()
-            self.model_lgb.fit(self.train[self.used_features], self.train[target], tuning=False, Debug=self.Debug)
+            self.model_lgb.fit(self.train[self.used_features], self.train[target], tuning=True, Debug=self.Debug)
 
         # 特征重要性
         fimp = self.model_lgb.feature_importances_

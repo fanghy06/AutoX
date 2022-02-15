@@ -121,11 +121,11 @@ class AutoX():
 #         log("start training xgboost model")
 #         if self.info_['task_type'] == 'regression':
 #             self.model_xgb = CrossXgbRegression(metric=self.info_['metric'])
-#             self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=False, Debug=self.Debug)
+#             self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=True, Debug=self.Debug)
 
 #         elif self.info_['task_type'] == 'binary':
 #             self.model_xgb = CrossXgbBiClassifier()
-#             self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=False, Debug=self.Debug)
+#             self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=True, Debug=self.Debug)
 
         # 模型预测
         predict_lgb = self.model_lgb.predict(self.test[self.used_features])

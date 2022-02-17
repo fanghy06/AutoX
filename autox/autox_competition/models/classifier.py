@@ -81,7 +81,7 @@ class CrossXgbBiClassifier(object):
         self.params_['eta'] = 0.01
         # self.params_['tree_method'] = 'gpu_hist'
 
-    def fit(self, X, y, tuning=True, Debug=False):
+    def fit(self, X, y, tuning=True, Debug=False, random_state=111):
         log('！！！！！！！！新版本上线！！！！！！！！！！！')
         log(X.shape)
         self.feature_importances_['feature'] = X.columns
@@ -210,7 +210,7 @@ class CrossLgbBiClassifier(object):
         self.params_['max_depth'] = trial.params['max_depth']
         self.N_round = trial.params['num_boost_round']
 
-    def fit(self, X, y, Early_Stopping_Rounds=None, N_round=None, Verbose=None, tuning=True, Debug=False):
+    def fit(self, X, y, Early_Stopping_Rounds=None, N_round=None, Verbose=None, tuning=True, Debug=False, random_state=111):
         log(X.shape)
 
         if tuning:
@@ -224,7 +224,7 @@ class CrossLgbBiClassifier(object):
         if Verbose is not None:
             self.Verbose = Verbose
 
-        folds = KFold(n_splits=self.n_fold, shuffle=True, random_state=889)
+        folds = KFold(n_splits=self.n_fold, shuffle=True, random_state=random_state)
         AUCs = []
         self.feature_importances_['feature'] = X.columns
 

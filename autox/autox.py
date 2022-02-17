@@ -21,8 +21,9 @@ from autox.autox_competition.models.regressor_ts import LgbRegressionTs, XgbRegr
 class AutoX():
     def __init__(self, target, train_name, test_name, path, time_series=False, ts_unit=None, time_col=None,
                  metric='rmse', feature_type = {}, relations = [], id = [], task_type = 'regression',
-                 Debug = False, image_info={}, target_map={}, random_state = 111):
+                 Debug = False, image_info={}, target_map={}, use_xgb=False, random_state = 111):
         self.random_state = random_state
+        self.use_xgb = use_xgb
         self.Debug = Debug
         self.info_ = {}
         self.info_['id'] = id
@@ -117,7 +118,6 @@ class AutoX():
 
     def get_submit(self):
         self.topk_feas = self.get_top_features(return_df = False)
-        print('******************把xgboost 加回来！******************')
         # 模型训练
         log("start training xgboost model")
         if self.info_['task_type'] == 'regression':
@@ -129,11 +129,12 @@ class AutoX():
             self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=True, Debug=self.Debug, random_state=self.random_state)
 
         # 模型预测
-        predict_lgb = self.model_lgb.predict(self.test[self.used_features])
-        predict_xgb = self.model_xgb.predict(self.test[self.used_features])
-
-        predict = (predict_xgb + predict_lgb) / 2
-
+        if self.use_xgb:
+            predict_lgb = self.model_lgb.predict(self.test[self.used_features])
+            predict_xgb = self.model_xgb.predict(self.test[self.used_features])
+            predict = (predict_xgb + predict_lgb) / 2
+        else:
+            predict = self.model_lgb.predict(self.test[self.used_features])
 
         # 预测结果后处理
         min_ = self.info_['min_target']

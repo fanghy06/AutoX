@@ -21,7 +21,8 @@ from autox.autox_competition.models.regressor_ts import LgbRegressionTs, XgbRegr
 class AutoX():
     def __init__(self, target, train_name, test_name, path, time_series=False, ts_unit=None, time_col=None,
                  metric='rmse', feature_type = {}, relations = [], id = [], task_type = 'regression',
-                 Debug = False, image_info={}, target_map={}):
+                 Debug = False, image_info={}, target_map={}, random_state = 111):
+        self.random_state = random_state
         self.Debug = Debug
         self.info_ = {}
         self.info_['id'] = id
@@ -125,7 +126,7 @@ class AutoX():
 
         elif self.info_['task_type'] == 'binary':
             self.model_xgb = CrossXgbBiClassifier()
-            self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=True, Debug=self.Debug)
+            self.model_xgb.fit(self.train[self.used_features], self.train[self.info_['target']], tuning=True, Debug=self.Debug, random_state=self.random_state)
 
         # 模型预测
         predict_lgb = self.model_lgb.predict(self.test[self.used_features])
@@ -312,7 +313,7 @@ class AutoX():
 
         elif self.info_['task_type'] == 'binary':
             self.model_lgb = CrossLgbBiClassifier()
-            self.model_lgb.fit(self.train[self.used_features], self.train[target], tuning=True, Debug=self.Debug)
+            self.model_lgb.fit(self.train[self.used_features], self.train[target], tuning=True, Debug=self.Debug, random_state=self.random_state)
 
         # 特征重要性
         fimp = self.model_lgb.feature_importances_

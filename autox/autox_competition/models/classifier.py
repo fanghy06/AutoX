@@ -45,7 +45,7 @@ class CrossXgbBiClassifier(object):
         self.params_ = params
 
     def optuna_tuning(self, X, y, Debug=False, random_state=111):
-        X_train, X_valid, y_train, y_valid = train_test_split(X, y, stratify=y, test_size=0.3, random_state=random_state)
+        X_train, X_valid, y_train, y_valid = train_test_split(X, y, stratify=y, test_size=0.2, random_state=random_state)
         def objective(trial):
             param_grid = {
                 'max_depth': trial.suggest_int('max_depth', 4, 15),
@@ -163,7 +163,7 @@ class CrossLgbBiClassifier(object):
         self.params_ = params
 
     def optuna_tuning(self, X, y, Debug=False, random_state=111):
-        X_train, X_valid, y_train, y_valid = train_test_split(X, y, stratify=y, test_size=0.3, random_state=random_state)
+        X_train, X_valid, y_train, y_valid = train_test_split(X, y, stratify=y, test_size=0.2, random_state=random_state)
 
         def objective(trial):
             param_grid = {
